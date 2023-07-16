@@ -1,0 +1,26 @@
+.header{
+  text-align: center;
+  color: #fff;
+  height: 64px;
+  background-color: #65799B;
+  line-height: 64px;
+  padding-inline: 50px;
+}
+
+.content{
+  text-align: center;
+  line-height: 120px;
+  background-color: #fff; 
+}
+.content__panels{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+  align-items: start;
+}
+
+
+
+
