@@ -16,7 +16,7 @@ const ModalForm = ({ task, disabled }) => {
 
   const closeModal = () => {
     setOpen(false);
-    form.resetFields();
+    task ? form.setFieldsValue() : form.resetFields();
     setTags([]);
   };
 

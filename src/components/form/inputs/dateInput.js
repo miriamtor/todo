@@ -1,17 +1,12 @@
 import React from 'react';
 import { Form, DatePicker } from 'antd';
-import moment from 'moment';
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-
-dayjs.extend(customParseFormat);
 
 export default function DateInput({ task }) {
   const disabledDate = (current) => {
-    const today = moment().startOf('day');
+    const today = dayjs().startOf('day');
     return current && current < today;
   };
-  
 
   return (
     <Form.Item
@@ -19,7 +14,7 @@ export default function DateInput({ task }) {
       name="date"
       rules={[
         {
-          required: task ? false : true,
+          required: true,
           message: 'Por favor ingresa la fecha de realización'
         }
       ]}
@@ -28,7 +23,7 @@ export default function DateInput({ task }) {
         placeholder="Fecha"
         format="DD-MM-YYYY"
         disabledDate={disabledDate}
-        defaultValue={task ? dayjs(task.date, 'DD-MM-YYYY') : null}
+        value={task ? dayjs(task.date, 'DD/MM/YYYY') : null}
       />
     </Form.Item>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Empty } from 'antd';
 import CardTask from '../card/cardTask';
 import ButtonClear from './buttonClear';
+import { FileTextOutlined, FileDoneOutlined } from '@ant-design/icons';
 
 const Panel = ({ type, filteredTasks }) => {
   const [categorizedTasks, setCategorizedTasks] = useState([]);
@@ -14,8 +15,13 @@ const Panel = ({ type, filteredTasks }) => {
   return (
     <>
       <Card 
-        title={type === 'done' ? 'Done' : 'To Do'}  
-        extra={type === 'done' ? <ButtonClear/> : null}
+        title={  
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {type === 'done' && <FileDoneOutlined style={{ marginRight: 8, marginTop: 4 }} />}
+          {type === 'todo' && <FileTextOutlined style={{ marginRight: 8, marginTop: 4 }} />}
+          <span style={{ fontSize: 20 }}>{type === 'done' ? 'Done' : 'To Do'}</span>
+        </div>}  
+        extra={type === 'done'  ? <><ButtonClear/> </> : null }
         style={{
           textAlign: 'left',
           minWidth: 300,
@@ -39,3 +45,14 @@ const Panel = ({ type, filteredTasks }) => {
 }
 
 export default Panel;
+
+
+/*
+<DatabaseOutlined />
+<ExceptionOutlined />
+
+<FileTextOutlined />
+<FileDoneOutlined />
+
+<FileExcelOutlined />
+*/

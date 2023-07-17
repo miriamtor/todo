@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import TaskContext from '../../context/TaskContext';
-import moment from 'moment';
 import { Card, Space, Tag, Switch, Typography } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import ModalForm from '../shared/modalForm';
 import ButtonDelete from './buttonDelete';
+import dayjs from 'dayjs';
 const { Text } = Typography;
 
 const CardTask = ({ task }) => {
@@ -13,14 +13,23 @@ const CardTask = ({ task }) => {
     const [ done, setDone ] = useState(state);
 
     const checkTask = () => {
-      setDone(!done);
+      const newDone = !done;
       setTasks((prevTasks) =>
-        prevTasks.map((prevTask) =>
-          prevTask.id === id ? { ...prevTask, state: !done } : prevTask
-        )
+        prevTasks.map((prevTask) => {
+          if (prevTask.id === id) {
+            if (newDone) {
+              return { ...prevTask, state: newDone, date: dayjs().format('DD-MM-YYYY') };
+            } else {
+              return { ...prevTask, state: newDone, date: prevTask.previousDate };
+            }
+          }
+          return prevTask;
+        })
       );
+      setDone(newDone);
     };
 
+    const today = dayjs().format('DD-MM-YYYY')
     return (
       <Card
         style={{
@@ -46,8 +55,8 @@ const CardTask = ({ task }) => {
           <Text>{title}</Text>
           <Text type="secondary">{description}</Text>
           <Text
-            type={ state ? 'default' : moment(date).isBefore(moment().startOf('day')) ? 'danger' : 'success' }
-          >
+            type={ state ? 'default' : dayjs(date).isBefore(dayjs().startOf('day')) ? 'danger' : 'success' }
+            >
             {date}
           </Text>
           <Space size={[0, 8]} wrap>

@@ -10,16 +10,14 @@ import dayjs from 'dayjs';
 
 const FormTask = ({ closeModal, form, task, tags, setTags }) => {
   const { setTasks } = useContext(TaskContext);
-  const initialValues = task
-    ? {
-        title: task.title,
-        description: task.description,
-        date: dayjs(task.date, 'DD-MM-YYYY')
-      }
-    : {};
+  const initialValues = task ?
+    {
+      title: task.title,
+      description: task.description,
+      date: dayjs(task.date, 'DD/MM/YYYY')
+    } :  {}
 
-  /* Agrega o actualiza una tarea en la lista de tareas:
-  Si la tarea ya tiene un ID, se actualiza, de lo contrario, se agrega como una nueva tarea */
+    
   const addOrUpdateTask = (newTask) => {
     task && task.id ? editTask(task.id, newTask) : addTask(newTask);
     closeModal();
@@ -44,6 +42,7 @@ const FormTask = ({ closeModal, form, task, tags, setTags }) => {
       state: false
     };
     addOrUpdateTask(newTask);
+    console.log(initialValues)
   };
 
   return (
@@ -59,7 +58,7 @@ const FormTask = ({ closeModal, form, task, tags, setTags }) => {
       <DescInput />
       <Row gutter={16}>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <DateInput task={task} />
+          <DateInput task={task} initialValue={initialValues.date} />
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <TagSection tags={tags} setTags={setTags} task={task} />
@@ -77,6 +76,3 @@ const FormTask = ({ closeModal, form, task, tags, setTags }) => {
 };
 
 export default FormTask;
-
-
-
