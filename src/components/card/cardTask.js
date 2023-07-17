@@ -18,7 +18,7 @@ const CardTask = ({ task }) => {
         prevTasks.map((prevTask) => {
           if (prevTask.id === id) {
             if (newDone) {
-              return { ...prevTask, state: newDone, date: dayjs().format('DD-MM-YYYY') };
+              return { ...prevTask, state: newDone, date: dayjs().format('DD-MM-YYYY'), previousDate: prevTask.date };
             } else {
               return { ...prevTask, state: newDone, date: prevTask.previousDate };
             }
