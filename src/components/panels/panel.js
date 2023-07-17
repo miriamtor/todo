@@ -6,6 +6,12 @@ import { FileTextOutlined, FileDoneOutlined } from '@ant-design/icons';
 
 const Panel = ({ type, filteredTasks }) => {
   const [categorizedTasks, setCategorizedTasks] = useState([]);
+  const [showButtonClear, setShowButtonClear] = useState(false);
+
+  useEffect(() => {
+    const doneTasks = filteredTasks.filter(task => task.state);
+    setShowButtonClear(doneTasks.length > 0);
+  }, [filteredTasks]);
 
   useEffect(() => {
     const filteredCategorizedTasks = filteredTasks?.filter(task => type === 'done' ? task.state : !task.state);
@@ -21,7 +27,7 @@ const Panel = ({ type, filteredTasks }) => {
           {type === 'todo' && <FileTextOutlined style={{ marginRight: 8, marginTop: 4 }} />}
           <span style={{ fontSize: 20 }}>{type === 'done' ? 'Done' : 'To Do'}</span>
         </div>}  
-        extra={type === 'done'  ? <><ButtonClear/> </> : null }
+        extra={type === 'done' && showButtonClear ? <ButtonClear/> : null }
         style={{
           textAlign: 'left',
           minWidth: 300,
@@ -45,14 +51,3 @@ const Panel = ({ type, filteredTasks }) => {
 }
 
 export default Panel;
-
-
-/*
-<DatabaseOutlined />
-<ExceptionOutlined />
-
-<FileTextOutlined />
-<FileDoneOutlined />
-
-<FileExcelOutlined />
-*/

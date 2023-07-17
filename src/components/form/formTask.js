@@ -42,7 +42,6 @@ const FormTask = ({ closeModal, form, task, tags, setTags }) => {
       state: false
     };
     addOrUpdateTask(newTask);
-    console.log(initialValues)
   };
 
   return (
