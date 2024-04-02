@@ -1,12 +1,17 @@
 .header{
-  text-align: center;
+  text-align: center; 
+  align-items: center;
   color: #fff;
-  height: 64px;
+  height: 75px;
   background-color: #65799B;
   line-height: 64px;
   padding-inline: 50px;
 }
-
+.header__image{
+  position: absolute;
+  left: 20px;
+  top: 5px;
+}
 .content{
   text-align: center;
   line-height: 120px;

@@ -10,6 +10,7 @@ import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import UseLocalStorage from './customHooks.js/useLocalStorage';
 import UseTaskFilter from './customHooks.js/useTaskFilter';
 import { Layout, Space, ConfigProvider } from 'antd';
+import logo from './images/logo.svg';
 
 const { Header, Content } = Layout;
 
@@ -26,6 +27,7 @@ function App() {
       <ConfigProvider theme={{ token: { colorPrimary: '#65799B' } }}>
         <Layout>
           <Header className='header'>
+            <img src={logo} className='header__image'/>
             <InputSearch setSearchTerm={setSearchTerm} />
           </Header>
           <Content className='content'>

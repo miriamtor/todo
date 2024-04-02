@@ -6,12 +6,10 @@ import ModalForm from '../shared/modalForm';
 import ButtonDelete from './buttonDelete';
 import dayjs from 'dayjs';
 const { Text } = Typography;
-
-const CardTask = ({ task }) => {
+const CardTask = ({ task, tasks }) => {
     const { setTasks } = useContext(TaskContext);
     const { id, title, description, state, date, tags } = task;
     const [ done, setDone ] = useState(state);
-
     const checkTask = () => {
       const newDone = !done;
       setTasks((prevTasks) =>
@@ -28,7 +26,6 @@ const CardTask = ({ task }) => {
       );
       setDone(newDone);
     };
-
     const today = dayjs().format('DD-MM-YYYY')
     return (
       <Card
@@ -68,11 +65,10 @@ const CardTask = ({ task }) => {
           </Space>
           <Space style={{ display: 'flex' }}>
             <ModalForm task={task} disabled={state}/>
-            <ButtonDelete task={task}  />
+            <ButtonDelete task={tasks[0]}  />
           </Space>
         </Space>
       </Card>
     );
 }
-
 export default CardTask;

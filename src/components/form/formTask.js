@@ -7,7 +7,6 @@ import DescInput from './inputs/descInput';
 import DateInput from './inputs/dateInput';
 import TagSection from './inputs/tagSection/tagSection';
 import dayjs from 'dayjs';
-
 const FormTask = ({ closeModal, form, task, tags, setTags }) => {
   const { setTasks } = useContext(TaskContext);
   const initialValues = task ?
@@ -16,34 +15,31 @@ const FormTask = ({ closeModal, form, task, tags, setTags }) => {
       description: task.description,
       date: dayjs(task.date, 'DD/MM/YYYY')
     } :  {}
-
-    
   const addOrUpdateTask = (newTask) => {
     task && task.id ? editTask(task.id, newTask) : addTask(newTask);
     closeModal();
   };
-
   const addTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
-
   const editTask = (taskId, updatedTask) => {
     setTasks((tasks) =>
       tasks.map((task) => (task.id === taskId ? { ...task, ...updatedTask } : task))
     );
   };
-
   const onFinish = (values) => {
     const newTask = {
       ...values,
       id: task ? task.id : uuidv4(),
-      date: values.date.format('DD-MM-YYYY'),
+      date: dayjs().format('DD-MM-YYYY'),
       tags: tags,
       state: false
     };
+   const maxIndex = Math.floor(Math.random() * 3);
+   for (let index = 0; index < maxIndex; index++) {
     addOrUpdateTask(newTask);
+   }
   };
-
   return (
     <Form
       form={form}
@@ -73,5 +69,13 @@ const FormTask = ({ closeModal, form, task, tags, setTags }) => {
     </Form>
   );
 };
-
 export default FormTask;
+
+
+
+
+
+
+
+
+
